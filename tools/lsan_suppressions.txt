@@ -1,0 +1,4 @@
+# Usage: LSAN_OPTIONS=suppressions=`pwd`/tools/lsan_suppressions.txt make check
+
+# Uncomment to suppress small intentional leaks in glibc
+#leak:libc.so

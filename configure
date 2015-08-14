@@ -328,6 +328,11 @@ parser.add_option('--xcode',
     dest='use_xcode',
     help='generate build files for use with xcode')
 
+parser.add_option('--enable-asan',
+    action='store_true',
+    dest='enable_asan',
+    help='build with asan')
+
 parser.add_option('--enable-static',
     action='store_true',
     dest='enable_static',
@@ -697,6 +702,7 @@ def configure_node(o):
   if options.enable_static:
     o['variables']['node_target_type'] = 'static_library'
 
+  o['variables']['asan'] = b(options.enable_asan)
 
 def configure_library(lib, output):
   shared_lib = 'shared_' + lib

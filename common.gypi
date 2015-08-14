@@ -177,7 +177,7 @@
         'cflags+': [
           '-fno-omit-frame-pointer',
           '-fsanitize=address',
-          '-w',  # http://crbug.com/162783
+          '-DLEAK_SANITIZER'
         ],
         'cflags_cc+': [ '-gline-tables-only' ],
         'cflags!': [ '-fomit-frame-pointer' ],
