@@ -9,9 +9,11 @@ if (common.isWindows) {
   return;
 }
 
+var open_fds = [];
+
 for (;;) {
   try {
-    fs.openSync(__filename, 'r');
+    open_fds.push(fs.openSync(__filename, 'r'));
   } catch (err) {
     assert(err.code === 'EMFILE' || err.code === 'ENFILE');
     break;
@@ -27,3 +29,8 @@ proc.on('error', common.mustCall(function(err) {
 
 // 'exit' should not be emitted, the process was never spawned.
 proc.on('exit', assert.fail);
+
+// close one fd for LSan
+if (open_fds.length >= 1) {
+  fs.closeSync(open_fds.pop());
+}
